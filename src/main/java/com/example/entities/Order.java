@@ -2,6 +2,8 @@ package com.example.entities;
 
 import java.util.Date;
 
+import com.example.enums.OrderStatus;
+
 public class Order {
 	private Long id;
 	private Date Moment;
