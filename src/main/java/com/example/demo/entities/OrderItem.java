@@ -1,4 +1,4 @@
-package com.example.entities;
+package com.example.demo.entities;
 
 public class OrderItem {
 	private Integer quantity;

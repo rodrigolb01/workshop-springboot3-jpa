@@ -1,8 +1,8 @@
-package com.example.entities;
+package com.example.demo.entities;
 
 import java.util.Date;
 
-import com.example.enums.OrderStatus;
+import com.example.demo.enums.OrderStatus;
 
 public class Order {
 	private Long id;
