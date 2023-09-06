@@ -27,7 +27,7 @@ public class Order implements Serializable{
 	private Long id;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant moment;
-	private OrderStatus status;	
+	private Integer orderStatus;	
 	
 	@JsonIgnore
 	@ManyToOne
@@ -38,11 +38,11 @@ public class Order implements Serializable{
 		
 	}
 
-	public Order(Long _id, Instant _moment, OrderStatus _status, User _customer) {
+	public Order(Long _id, Instant _moment, OrderStatus _orderStatus, User _customer) {
 		super();
 		this.id = _id;
 		this.moment = _moment;
-		this.status = _status;
+		setOrderStatus(_orderStatus);
 		this.customer = _customer;
 	}
 
@@ -62,8 +62,15 @@ public class Order implements Serializable{
 		this.moment = moment;
 	}
 
-	public OrderStatus getStatus() {
-		return status;
+	public void setOrderStatus(OrderStatus orderStatus) {
+		if(orderStatus != null)
+		{
+			this.orderStatus = orderStatus.getCode();
+		}
+	}
+	
+	public OrderStatus getOrderStatus() {
+		return OrderStatus.ValueOf(orderStatus);
 	}
 	
 	public void setCustomer(User customer)
@@ -91,9 +98,5 @@ public class Order implements Serializable{
 			return false;
 		Order other = (Order) obj;
 		return Objects.equals(id, other.id);
-	}
-
-	public void setStatus(OrderStatus status) {
-		this.status = status;
 	}
 }
