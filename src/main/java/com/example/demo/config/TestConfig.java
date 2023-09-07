@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.example.demo.entities.Category;
 import com.example.demo.entities.Order;
+import com.example.demo.entities.Product;
 import com.example.demo.entities.User;
 import com.example.demo.enums.OrderStatus;
 import com.example.demo.repositories.CategoryRepository;
 import com.example.demo.repositories.OrderRepository;
+import com.example.demo.repositories.ProductRepository;
 import com.example.demo.repositories.UserRepository;
 
 @Configuration
@@ -25,6 +27,8 @@ public class TestConfig implements CommandLineRunner{
 	private OrderRepository orderRepository;
 	@Autowired
 	private CategoryRepository categoryRepository;
+	@Autowired
+	private ProductRepository productRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -37,10 +41,15 @@ public class TestConfig implements CommandLineRunner{
 		
 		Category c1 = new Category(null, "clothing");
 		Category c2 = new Category(null, "medicine");
+		
+		Product p1 = new Product(null, "shapoo", "Keeps your hair healty", 08.99, "aawwwwwwaaswwwwsasdsadwsad");
+		Product p2 = new Product(null, "cottom pads", "Nice and soft cottom pads for cleaning your ears", 02.99, "asdsadsadsdsad");
+		
 
 		
 		userRepository.saveAll(Arrays.asList(u1, u2));
 		orderRepository.saveAll(Arrays.asList(o1, o2, o3));
 		categoryRepository.saveAll(Arrays.asList(c1,c2));
+		productRepository.saveAll(Arrays.asList(p1,p2));
 	}
 }
