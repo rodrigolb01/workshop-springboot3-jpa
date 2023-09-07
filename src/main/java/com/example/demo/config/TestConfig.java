@@ -39,13 +39,13 @@ public class TestConfig implements CommandLineRunner{
 		Order o2 = new Order(null, Instant.parse("2023-09-25T20:00:00Z"), OrderStatus.WAITING_PAYMENT, u2);
 		Order o3 = new Order(null, Instant.parse("2023-09-25T20:00:00Z"), OrderStatus.WAITING_PAYMENT, u2);
 		
-		Category c1 = new Category(null, "clothing");
+		Category c1 = new Category(null, "cosmetics");
 		Category c2 = new Category(null, "medicine");
 		
 		Product p1 = new Product(null, "shapoo", "Keeps your hair healty", 08.99, "aawwwwwwaaswwwwsasdsadwsad");
 		Product p2 = new Product(null, "cottom pads", "Nice and soft cottom pads for cleaning your ears", 02.99, "asdsadsadsdsad");
 		
-
+		p1.getCategories().add(c1);
 		
 		userRepository.saveAll(Arrays.asList(u1, u2));
 		orderRepository.saveAll(Arrays.asList(o1, o2, o3));
