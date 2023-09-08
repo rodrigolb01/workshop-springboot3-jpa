@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
@@ -33,6 +36,9 @@ public class Product implements Serializable{
 	joinColumns = @JoinColumn(name = "product_id"),
 	inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private Set<Category> categories = new HashSet<>();
+	
+	@OneToMany(mappedBy = "id.product")
+	private Set<OrderItem> orderItems = new HashSet<>();
 	
 	public Product() {
 		super();
@@ -77,11 +83,11 @@ public class Product implements Serializable{
 		this.description = description;
 	}
 
-	public Double getValue() {
+	public Double getPrice() {
 		return price;
 	}
 
-	public void setValue(Double price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 
@@ -95,6 +101,16 @@ public class Product implements Serializable{
 
 	public Set<Category> getCategories() {
 		return categories;
+	}
+	
+	@JsonIgnore
+	public Set<Order> getOrders() {
+		Set<Order> orders = new HashSet<>();
+		for(OrderItem x : orderItems)
+		{
+			orders.add(x.getOrder());
+		}
+		return orders;
 	}
 
 	@Override

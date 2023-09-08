@@ -1,4 +1,5 @@
 package com.example.demo.entities;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,7 @@ public class User implements Serializable{
 	private String phone;
 	private String password;
 	
-	
+	@JsonIgnore
 	@OneToMany(mappedBy = "customer")	
 	private List<Order> orders = new ArrayList<>();
 
