@@ -29,6 +29,7 @@ public class Order implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant moment;
 	private Integer orderStatus;
@@ -53,6 +54,22 @@ public class Order implements Serializable{
 		this.moment = _moment;
 		setOrderStatus(_orderStatus);
 		this.customer = _customer;
+	}
+	
+	public double getTotal()
+	{
+		double sum = 0.0;
+		for(OrderItem x : items)
+		{
+			sum += x.getSubTotal();
+		}
+		return sum;
+	}
+
+	@Override
+	public String toString() {
+		return "Order [id=" + id + ", moment=" + moment + ", orderStatus=" + orderStatus + ", payment=" + payment
+				+ ", customer=" + customer + ", items=" + items + "]";
 	}
 
 	public Long getId() {
